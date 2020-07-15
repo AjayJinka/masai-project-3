@@ -10,8 +10,10 @@ function getData(){
     xhr.onload = function(){
         if( xhr.status === 200 ) {
             var response = JSON.parse(xhr.response)
-            //console.log(response)
-            displayCountries(response)
+            var firstLetter = document.getElementById('firstLetter')
+            firstLetter.addEventListener('blur', function(){
+                displayCountries(response, firstLetter.value.toLowerCase())
+            })
         }
         else {
             alert("The Error Code is : " + xhr.status)
@@ -22,13 +24,20 @@ function getData(){
     }
 }
 
-function displayCountries(response){
+function displayCountries(response, firstLetter){
+    
     var countries = document.getElementById('countryList')
+    countries.innerHTML = ""
+    var countryNames = []
     for( var i = 0; i < response.length; i++ ) {
-        var a = document.createElement('a')
-        a.setAttribute('class', 'dropdown-item')
-        a.textContent = response[i].Country
-        //console.log(response[i].Country)
-        countries.append(a)
+        countryNames.push(response[i].Country)
+    }
+    for( var i = 0; i < response.length; i++ ) {
+       if( response[i].Country[0].toLowerCase() === firstLetter ) {
+            var option = document.createElement('option')
+            option.value = response[i].Country
+            option.textContent = response[i].Country
+            countries.append(option)
+       }
     }
 }

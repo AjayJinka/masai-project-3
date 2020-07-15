@@ -16,14 +16,25 @@
                 </div>
                 <div class = "col-4">
                     <div class = "mt-2">
-                        <div class="dropdown">
-                           <button class="btn btn-warning px-4 dropdown-toggle font-weight-bold" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             Select a Country
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id = "countryList">
-                             
+                        <div class = "py-2">
+                            <div class = "d-flex align-items-center justify-content-between">
+                                <div>
+                                    <label for = "firstLetter" class = "font-weight-bold">Enter Country name's First Letter</label>
+                                </div>
+                                <div>
+                                    <input type = "text" id = "firstLetter" class = "rounded" size = "3">
+                                </div>
                             </div>
-                          </div>
+                        </div>
+                        <select name="countries" id="countryList" class = "shadow rounded btn-block my-2">
+                            <option value="">--Please choose an option--</option>
+                            <option value="dog">Dog</option>
+                            <option value="cat">Cat</option>
+                            <option value="hamster">Hamster</option>
+                            <option value="parrot">Parrot</option>
+                            <option value="spider">Spider</option>
+                            <option value="goldfish">Goldfish</option>
+                        </select>
                     </div>
                 </div>
             </div>
