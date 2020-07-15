@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
     </head>
     <body>
         <div class = "container">
@@ -14,6 +15,8 @@
                         WORLD WIDE COVID-19 INFORMATION
                     </div>
                 </div>
+            </div>
+            <div class = "row">
                 <div class = "col-4">
                     <div class = "mt-2">
                         <div class = "py-2">
@@ -22,19 +25,46 @@
                                     <label for = "firstLetter" class = "font-weight-bold">Enter Country name's First Letter</label>
                                 </div>
                                 <div>
-                                    <input type = "text" id = "firstLetter" class = "rounded" size = "3">
+                                    <input type = "text" id = "firstLetter" class = "rounded text-center" size = "3">
                                 </div>
                             </div>
                         </div>
-                        <select name="countries" id="countryList" class = "shadow rounded btn-block my-2">
+                        <select name="countries" id="countryList" class = "shadow rounded btn-block my-2 p-1">
                             <option value="">--Please choose an option--</option>
-                            <option value="dog">Dog</option>
-                            <option value="cat">Cat</option>
-                            <option value="hamster">Hamster</option>
-                            <option value="parrot">Parrot</option>
-                            <option value="spider">Spider</option>
-                            <option value="goldfish">Goldfish</option>
+                            
                         </select>
+                    </div>
+                </div>
+                <div class = "col-8">
+                    <div class = "row">
+                        <div class = "col-3 text-center">
+                            <i class="fas fa-globe-americas fa-4x text-primary mt-3" id = "globe"></i>
+                        </div>
+                        <div class = "col-9">
+                            <div>
+                                <table class="table border rounded">
+                                    <thead style="visibility: hidden;" id = "thead">
+                                      <tr>
+                                        <th scope="col" class = "border font-weight-normal text-center">Total Confirmed</th>
+                                        <th scope="col" class = "border font-weight-normal text-center">Total Deaths</th>
+                                        <th scope="col" class = "border font-weight-normal text-center">Total Recovered</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr id = "tableRow" class = "p-3">
+                                        
+                                      </tr>
+                                    </tbody>
+                                </table>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class = "col-12">
+                            <div class = "border my-3">
+                                fafdsadf
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
