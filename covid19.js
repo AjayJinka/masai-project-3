@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', function(){
-   //getCountries()
+   getCountries()
 })
 
 function getCountries(){
@@ -73,4 +73,97 @@ function displayGlobe(response){
         td.setAttribute('class', 'border text-center font-weight-bold')
         tableRow.append(td)
     }
+}
+
+var waytoDisplay = document.getElementById('wayToDisplay')
+waytoDisplay.addEventListener('click', function(){
+    if(event.target.id === "selectedDay") {
+        createDate()
+    }
+    else if(event.target.id === "selectedRange") {
+        displayselectedRange()
+    }
+    else if( event.target.id === "selectedRange" ) {
+        compareDates()
+    }
+})
+
+function createDate(){
+    var calendar = document.getElementById('calendar')
+    var dateInp = document.createElement('input')
+    dateInp.setAttribute('id', 'desiredDate')
+    dateInp.type = "date"
+    var div = document.createElement('div')
+    var small = document.createElement('small')
+    small.textContent = "Select your desired Date"
+    small.setAttribute('class', 'text-muted')
+    div.append(small)
+    calendar.append(dateInp, div)
+
+    dateInp.addEventListener('change',function(){
+        var date = new Date(dateInp.value)
+        var dateDup = new Date(dateInp.value)
+        displaySelectedDay(date, dateDup)
+    })
+    
+}
+
+function displaySelectedDay(date, dateDup){
+
+    date = date.toISOString()
+    dateDup = dateDup.setDate(dateDup.getDate()+1)
+    dateDup = new Date(dateDup).toISOString()
+    var selectedCountry = document.querySelector('#countryList').value
+
+    var xhr = new XMLHttpRequest()
+    var url = "https://api.covid19api.com/country/"
+    url = url + selectedCountry + "?from=" + date + "&to=" + dateDup
+    xhr.open('GET', url)
+    xhr.send()
+    xhr.onload = function(){
+        if( xhr.status === 200 ) {
+            var response = JSON.parse(xhr.response)
+            var dispCountry = document.getElementById('dispCountry')
+            dispCountry.innerHTML = ""
+            dispCountry.textContent = selectedCountry + " on " + new Date(date).toLocaleDateString()
+        
+            var resultHead = document.getElementById('resultHead')
+            resultHead.style.visibility = "visible"
+            var resultFromAPI = document.getElementById('resultFromAPI')
+            resultFromAPI.innerHTML = ""
+            for( key in response[0] ){
+                if( key === 'Confirmed' ) {
+                    var td = document.createElement('td')
+                    td.textContent = response[0][key]
+                    td.setAttribute('class', 'border text-center font-weight-bold')
+                    resultFromAPI.append(td)
+                }
+                else if( key === 'Deaths' ) {
+                    var td = document.createElement('td')
+                    td.textContent = response[0][key]
+                    td.setAttribute('class', 'border text-center font-weight-bold')
+                    resultFromAPI.append(td)
+                }
+                else if( key === 'Recovered') {
+                    var td = document.createElement('td')
+                    td.textContent = response[0][key]
+                    td.setAttribute('class', 'border text-center font-weight-bold')
+                    resultFromAPI.append(td)
+                }
+                else if( key === 'Active' ) {
+                    var td = document.createElement('td')
+                    td.textContent = response[0][key]
+                    td.setAttribute('class', 'border text-center font-weight-bold')
+                    resultFromAPI.append(td)
+                }
+            }
+        }
+        else {
+            alert("The Error Code is : " + xhr.status)
+        }
+    }
+    xhr.onerror = function(){
+        alert("There is an Error in sending HTTP Request")
+    }
+    
 }

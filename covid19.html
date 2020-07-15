@@ -18,21 +18,41 @@
             </div>
             <div class = "row">
                 <div class = "col-4">
-                    <div class = "mt-2">
-                        <div class = "py-2">
-                            <div class = "d-flex align-items-center justify-content-between">
-                                <div>
-                                    <label for = "firstLetter" class = "font-weight-bold">Enter Country name's First Letter</label>
+                    <div class = "row">
+                        <div class = "col-12">
+                            <div class = "mt-2">
+                                <div class = "py-2">
+                                    <div class = "d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <label for = "firstLetter" class = "font-weight-bold">Enter Country name's First Letter</label>
+                                        </div>
+                                        <div>
+                                            <input type = "text" id = "firstLetter" class = "rounded text-center" size = "3">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <input type = "text" id = "firstLetter" class = "rounded text-center" size = "3">
+                                <select name="countries" id="countryList" class = "shadow rounded btn-block my-2 p-1">
+                                    <option value="">--Please choose an option--</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class = "col-12">
+                            <div class = "d-flex flex-column mt-4" id = "wayToDisplay">
+                                <div class = "font-weight-bold text-center">
+                                    Choose your Desired Style to Display Covid Data by clicking on the below buttons
+                                </div>
+                                <div class = "my-3">
+                                    <button type="button" class="btn btn-primary btn-block" id = "selectedDay">Data on a Selected Day</button>
+                                </div>
+                                <div class = "my-3">
+                                    <button type="button" class="btn btn-success btn-block" id = "selectedRange">Data between Selected Range of Dates</button>
+                                </div>
+                                <div class = "my-3">
+                                    <button type="button" class="btn btn-info btn-block"  id = "compareDates">Comparing between Two Dates</button>
                                 </div>
                             </div>
                         </div>
-                        <select name="countries" id="countryList" class = "shadow rounded btn-block my-2 p-1">
-                            <option value="">--Please choose an option--</option>
-                            
-                        </select>
                     </div>
                 </div>
                 <div class = "col-8">
@@ -61,8 +81,34 @@
                     </div>
                     <div class = "row">
                         <div class = "col-12">
-                            <div class = "border my-3">
-                                fafdsadf
+                            <div class = "row">
+                                <div class = "col-4">
+                                    <div class = "my-3" id = "calendar">
+                                       
+                                    </div>
+                                </div>
+                                <div class = "col-8">
+                                    <div id = "dispCountry" class = "border text-center font-weight-bold mt-3">
+
+                                    </div>
+                                    <div>
+                                        <table class="table border rounded">
+                                            <thead style="visibility: hidden;" id = "resultHead">
+                                              <tr>
+                                                <th scope="col" class = "border font-weight-normal text-center">Confirmed</th>
+                                                <th scope="col" class = "border font-weight-normal text-center">Deaths</th>
+                                                <th scope="col" class = "border font-weight-normal text-center">Recovered</th>
+                                                <th scope="col" class = "border font-weight-normal text-center">Active</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr class = "p-3" id = "resultFromAPI">
+                                                
+                                              </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
