@@ -61,6 +61,12 @@
                             <i class="fas fa-globe-americas fa-4x text-primary mt-3" id = "globe"></i>
                         </div>
                         <div class = "col-9">
+                            <div class = "border text-center font-weight-bold">
+                                World Wide Live Covid Data as on Yesterday
+                                <div>
+                                    <small class = "text-muted">Click the Globe beside to see the live data</small>
+                                </div>
+                            </div>
                             <div>
                                 <table class="table border rounded">
                                     <thead style="visibility: hidden;" id = "thead">
@@ -94,14 +100,14 @@
                                     <div>
                                         <table class="table border rounded">
                                             <thead style="visibility: hidden;" id = "resultHead">
-                                              <tr>
+                                              <tr id = "headRow">
                                                 <th scope="col" class = "border font-weight-normal text-center">Confirmed</th>
                                                 <th scope="col" class = "border font-weight-normal text-center">Deaths</th>
                                                 <th scope="col" class = "border font-weight-normal text-center">Recovered</th>
                                                 <th scope="col" class = "border font-weight-normal text-center">Active</th>
                                               </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id = "tbody">
                                               <tr class = "p-3" id = "resultFromAPI">
                                                 
                                               </tr>
