@@ -1,12 +1,13 @@
 # masai-project-3
-Covid - 19
+
+# Covid - 19
 
 # Home Page
 ![](https://github.com/AjayJinka/masai-project-3/blob/master/images/home.PNG)
 
 # Functionality
 You can get Covid Data in 4 Styles
-1. Whole globe live covid data (Click on the globe.
+1. Whole globe live covid data (Click on the globe).
 2. Covid Data of a selected country on a selected date.
 3. Covid Data of a selected country between two dates selected.
 4. Comparision of Covid data between two dates selected.
