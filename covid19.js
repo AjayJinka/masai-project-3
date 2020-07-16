@@ -81,10 +81,10 @@ waytoDisplay.addEventListener('click', function(){
         createDate()
     }
     else if(event.target.id === "selectedRange") {
-        createRangeDates()
+        createRangeDates(event.target.id)
     }
-    else if( event.target.id === "selectedRange" ) {
-        compareDates()
+    else if( event.target.id === "compareDates" ) {
+        createRangeDates(event.target.id)
     }
 })
 
@@ -109,7 +109,7 @@ function createDate(){
     
 }
 
-function createRangeDates() {
+function createRangeDates(id) {
     var calendar = document.getElementById('calendar')
     calendar.innerHTML = ""
     var dateFrom = document.createElement('input')
@@ -140,7 +140,13 @@ function createRangeDates() {
     dateTo.addEventListener('change',function(){
         var fromDate = new Date(dateFrom.value)
         var toDate = new Date(dateTo.value)
-        displayselectedRange(fromDate, toDate)
+
+        if( id === "selectedRange" ){
+            displayselectedRange(fromDate, toDate)
+        }
+        else if( id === "compareDates" ) {
+            compareDates(fromDate, toDate)
+        }
     })
 }
 
@@ -163,9 +169,17 @@ function displaySelectedDay(date, dateDup){
             dispCountry.innerHTML = ""
             dispCountry.textContent = selectedCountry + " on " + new Date(date).toLocaleDateString()
             var resultHead = document.getElementById('resultHead')
+            var headRow = document.getElementById('headRow')
+            if( headRow.lastChild.textContent === "Date" ) {
+                headRow.lastChild.remove()
+            }
             resultHead.style.visibility = "visible"
-            var resultFromAPI = document.getElementById('resultFromAPI')
-            resultFromAPI.innerHTML = ""
+            var tbody = document.getElementById('tbody')
+            tbody.innerHTML = ""
+            var resultFromAPI = document.createElement('tr')
+            resultFromAPI.setAttribute('class', 'p-3')
+            resultFromAPI.setAttribute('id', 'resultFromAPI')
+            tbody.append(resultFromAPI)
             
             for( var k = 0; k < response.length; k++ ) {
                 if( response[k].Province !== "" ) {
@@ -352,6 +366,217 @@ function displayselectedRange(fromDate, toDate) {
             }
             
            
+        }
+        else {
+            alert("The Error Code is : " + xhr.status)
+        }
+    }
+    xhr.onerror = function(){
+        alert("There is an Error in sending HTTP Request")
+    }
+}
+
+function compareDates(fromDate, toDate) {
+    var flagy = false
+    fromDate = fromDate.toISOString()
+    toDate = toDate.toISOString()
+    var selectedCountry = document.querySelector('#countryList').value
+    var xhr = new XMLHttpRequest()
+    var url = "https://api.covid19api.com/country/"
+    url = url + selectedCountry + "?from=" + fromDate + "&to=" + toDate
+    xhr.open('GET', url)
+    xhr.send()
+    xhr.onload = function(){
+        if( xhr.status === 200 ) {
+            var response = JSON.parse(xhr.response)
+            var dispCountry = document.getElementById('dispCountry')
+            dispCountry.innerHTML = ""
+            dispCountry.textContent = selectedCountry +  " : Increase/Decrease of Cases between " + new Date(fromDate).toLocaleDateString() + " & " + new Date(toDate).toLocaleDateString()
+            var headRow = document.getElementById('headRow')
+            if( headRow.lastChild.textContent === "Date" ) {
+                headRow.lastChild.remove()
+            }
+            var resultHead = document.getElementById('resultHead')
+            resultHead.style.visibility = "visible"
+            var tbody = document.getElementById('tbody')
+            tbody.innerHTML = ""
+            
+            for( var k = 0; k < response.length; k++ ) {
+                if( response[k].Province !== "" ) {
+                    flagy = true;
+                    break;
+                }
+            }
+            if( flagy === false ) {
+                var tr = document.createElement('tr')
+
+                var td1 = document.createElement('td')
+                var num1 = Number(response[response.length-1].Confirmed) - Number(response[0].Confirmed)
+                if( num1 > 0 ) {
+                    td1.textContent = "+" + num1
+                    td1.setAttribute('class', 'border text-center font-weight-bold bg-danger')
+                }
+                else {
+                    if(num1 === 0 ) {
+                        td1.textContent = num1
+                    }
+                    else {
+                        td1.textContent = "-" + num1
+                    }
+                    td1.setAttribute('class', 'border text-center font-weight-bold bg-success')
+                } 
+                
+
+                var td2 = document.createElement('td')
+                var num2 = Number(response[response.length-1].Deaths) - Number(response[0].Deaths)
+                if( num2 > 0 ) {
+                    td2.textContent = "+" + num2
+                    td2.setAttribute('class', 'border text-center font-weight-bold bg-danger')
+                }
+                else {
+                    if(num2 === 0 ) {
+                        td2.textContent = num2
+                    }
+                    else {
+                        td2.textContent = "-" + num2
+                    }
+                    td2.setAttribute('class', 'border text-center font-weight-bold bg-success')
+                } 
+
+                var td3 = document.createElement('td')
+                var num3 = Number(response[response.length-1].Recovered) - Number(response[0].Recovered)
+                if( num3 > 0 ) {
+                    td3.textContent = "+" + num3
+                    td3.setAttribute('class', 'border text-center font-weight-bold bg-success')
+                }
+                else {
+                    if(num3 === 0 ) {
+                        td3.textContent = num3
+                    }
+                    else {
+                        td3.textContent = "-" + num3
+                    }
+                    td3.setAttribute('class', 'border text-center font-weight-bold bg-danger')
+                } 
+
+                var td4 = document.createElement('td')
+                var num4 = Number(response[response.length-1].Active) - Number(response[0].Active)
+                if( num4 > 0 ) {
+                    td4.textContent = "+" + num4
+                    td4.setAttribute('class', 'border text-center font-weight-bold bg-danger')
+                }
+                else {
+                    if(num4 === 0 ) {
+                        td4.textContent = num4
+                    }
+                    else {
+                        td4.textContent = "-" + num4
+                    }
+                    td4.setAttribute('class', 'border text-center font-weight-bold bg-success')
+                } 
+
+                tr.append(td1, td2, td3, td4)
+
+                tbody.append(tr)
+            }
+            else {
+                var resNew = []
+                var fDate  = Number(new Date(fromDate).getDate())
+                var tDate  = Number(new Date(toDate).getDate())
+
+                var n = tDate - fDate + 1
+
+                for( k = 0; k < n; k++ ) {
+                    var tr2 = document.createElement('tr')
+                    var obj = {
+                        "Confirmed": 0,
+                        "Deaths": 0,
+                        "Recovered": 0,
+                        "Active": 0,
+                        "Date":""
+                        }
+                    for( m = 0; m < response.length ; m++ ) {
+                        if( new Date(response[m].Date).toLocaleDateString() === new Date(fromDate).toLocaleDateString() ) {
+                            obj.Confirmed += Number(response[m].Confirmed)
+                            obj.Deaths += Number(response[m].Deaths)
+                            obj.Recovered += Number(response[m].Recovered)
+                            obj.Active += Number(response[m].Active)
+                            obj.Date = new Date(response[m].Date).toLocaleDateString()
+                        }
+                    }  
+                    resNew.push(obj)
+                    fromDate = new Date(fromDate)
+                    fromDate = fromDate.setDate(fromDate.getDate()+1)
+    
+                }
+                var tr2 = document.createElement('tr')
+                var td5 = document.createElement('td')
+                var num5 = Number(resNew[resNew.length-1].Confirmed) - Number(resNew[0].Confirmed)
+                if( num5 > 0 ) {
+                    td5.textContent = "+" + num5
+                    td5.setAttribute('class', 'border text-center font-weight-bold bg-danger')
+                }
+                else {
+                    if(num5 === 0 ) {
+                        td5.textContent = num5
+                    }
+                    else {
+                        td5.textContent = "-" + num5
+                    }
+                    td5.setAttribute('class', 'border text-center font-weight-bold bg-success')
+                } 
+
+                var td6 = document.createElement('td')
+                var num6 = Number(resNew[resNew.length-1].Deaths) - Number(resNew[0].Deaths)
+                if( num6 > 0 ) {
+                    td6.textContent = "+" + num6
+                    td6.setAttribute('class', 'border text-center font-weight-bold bg-danger')
+                }
+                else {
+                    if(num6 === 0 ) {
+                        td6.textContent = num6
+                    }
+                    else {
+                        td6.textContent = "-" + num6
+                    }
+                    td6.setAttribute('class', 'border text-center font-weight-bold bg-success')
+                } 
+
+                var td7 = document.createElement('td')
+                var num7 = Number(resNew[resNew.length-1].Recovered) - Number(resNew[0].Recovered)
+                if( num7 > 0 ) {
+                    td7.textContent = "+" + num7
+                    td7.setAttribute('class', 'border text-center font-weight-bold bg-success')
+                }
+                else {
+                    if(num7 === 0 ) {
+                        td7.textContent = num7
+                    }
+                    else {
+                        td7.textContent = "-" + num7
+                    }
+                    td7.setAttribute('class', 'border text-center font-weight-bold bg-danger')
+                } 
+                var td8 = document.createElement('td')
+                var num8 = Number(resNew[resNew.length-1].Active) - Number(resNew[0].Active)
+                if( num8 > 0 ) {
+                    td8.textContent = "+" + num8
+                    td8.setAttribute('class', 'border text-center font-weight-bold bg-danger')
+                }
+                else {
+                    if(num8 === 0 ) {
+                        td8.textContent = num8
+                    }
+                    else {
+                        td8.textContent = "-" + num8
+                    }
+                    td8.setAttribute('class', 'border text-center font-weight-bold bg-success')
+                } 
+
+                tr2.append(td5, td6, td7, td8)
+
+                tbody.append(tr2)
+            }
         }
         else {
             alert("The Error Code is : " + xhr.status)
