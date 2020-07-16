@@ -70,7 +70,7 @@ function displayGlobe(response){
     for( key in response ) {
         var td = document.createElement('td')
         td.textContent = response[key]
-        td.setAttribute('class', 'border text-center font-weight-bold')
+        td.setAttribute('class', 'border text-center font-weight-bold bg-warning')
         tableRow.append(td)
     }
 }
@@ -96,8 +96,8 @@ function createDate(){
     dateInp.type = "date"
     var div = document.createElement('div')
     var small = document.createElement('small')
+    small.setAttribute('class', 'font-weight-bold')
     small.textContent = "Select your desired Date"
-    small.setAttribute('class', 'text-muted')
     div.append(small)
     calendar.append(dateInp, div)
 
@@ -120,7 +120,7 @@ function createRangeDates(id) {
     from.setAttribute('class', 'font-weight-bold')
     var small = document.createElement('small')
     small.textContent = "Select From Date"
-    small.setAttribute('class', 'ml-2 text-muted')
+    small.setAttribute('class', 'ml-2 font-weight-bold')
     from.append(small)
 
     var dateTo = document.createElement('input')
@@ -131,7 +131,7 @@ function createRangeDates(id) {
     to.setAttribute('class', 'mt-5 font-weight-bold')
     var small = document.createElement('small')
     small.textContent = "Select To Date"
-    small.setAttribute('class', 'ml-2 text-muted')
+    small.setAttribute('class', 'ml-2 font-weight-bold')
     to.append(small)
 
 
@@ -192,25 +192,25 @@ function displaySelectedDay(date, dateDup){
                     if( key === 'Confirmed' ) {
                         var td = document.createElement('td')
                         td.textContent = response[0][key]
-                        td.setAttribute('class', 'border text-center font-weight-bold')
+                        td.setAttribute('class', 'border text-center font-weight-bold bg-warning')
                         resultFromAPI.append(td)
                     }
                     else if( key === 'Deaths' ) {
                         var td = document.createElement('td')
                         td.textContent = response[0][key]
-                        td.setAttribute('class', 'border text-center font-weight-bold')
+                        td.setAttribute('class', 'border text-center font-weight-bold bg-warning')
                         resultFromAPI.append(td)
                     }
                     else if( key === 'Recovered') {
                         var td = document.createElement('td')
                         td.textContent = response[0][key]
-                        td.setAttribute('class', 'border text-center font-weight-bold')
+                        td.setAttribute('class', 'border text-center font-weight-bold bg-warning')
                         resultFromAPI.append(td)
                     }
                     else if( key === 'Active' ) {
                         var td = document.createElement('td')
                         td.textContent = response[0][key]
-                        td.setAttribute('class', 'border text-center font-weight-bold')
+                        td.setAttribute('class', 'border text-center font-weight-bold bg-warning')
                         resultFromAPI.append(td)
                     }
                 }
@@ -278,7 +278,7 @@ function displayselectedRange(fromDate, toDate) {
             var headRow = document.getElementById('headRow')
             if( headRow.lastChild.textContent !== "Date" ) {
                 var th = document.createElement('th')
-                th.setAttribute('class', 'border font-weight-normal text-center')
+                th.setAttribute('class', 'border font-weight-normal text-center bg-primary')
                 th.textContent = "Date"
                 headRow.append(th)
             }
@@ -301,23 +301,23 @@ function displayselectedRange(fromDate, toDate) {
 
                     var td1 = document.createElement('td')
                     td1.textContent = response[p].Confirmed
-                    td1.setAttribute('class', 'border text-center font-weight-bold')
+                    td1.setAttribute('class', 'border text-center font-weight-bold bg-warning')
 
                     var td2 = document.createElement('td')
                     td2.textContent = response[p].Deaths
-                    td2.setAttribute('class', 'border text-center font-weight-bold')
+                    td2.setAttribute('class', 'border text-center font-weight-bold bg-warning')
 
                     var td3 = document.createElement('td')
                     td3.textContent = response[p].Recovered
-                    td3.setAttribute('class', 'border text-center font-weight-bold')
+                    td3.setAttribute('class', 'border text-center font-weight-bold bg-warning')
 
                     var td4 = document.createElement('td')
                     td4.textContent = response[p].Active
-                    td4.setAttribute('class', 'border text-center font-weight-bold')
+                    td4.setAttribute('class', 'border text-center font-weight-bold bg-warning')
 
                     var td5 = document.createElement('td')
                     td5.textContent = new Date(response[p].Date).toLocaleDateString()
-                    td5.setAttribute('class', 'border text-center font-weight-bold')
+                    td5.setAttribute('class', 'border text-center font-weight-bold bg-warning')
 
                     tr.append(td1, td2, td3, td4,td5)
 
@@ -353,7 +353,7 @@ function displayselectedRange(fromDate, toDate) {
                     for( key in obj ) {
                     var td = document.createElement('td')
                     td.textContent = obj[key]
-                    td.setAttribute('class', 'border text-center font-weight-bold')
+                    td.setAttribute('class', 'border text-center font-weight-bold bg-warning')
                     tr2.append(td)
                     }
                     tbody.append(tr2)
@@ -421,7 +421,7 @@ function compareDates(fromDate, toDate) {
                         td1.textContent = num1
                     }
                     else {
-                        td1.textContent = "-" + num1
+                        td1.textContent =  num1
                     }
                     td1.setAttribute('class', 'border text-center font-weight-bold bg-success')
                 } 
@@ -438,7 +438,7 @@ function compareDates(fromDate, toDate) {
                         td2.textContent = num2
                     }
                     else {
-                        td2.textContent = "-" + num2
+                        td2.textContent =  num2
                     }
                     td2.setAttribute('class', 'border text-center font-weight-bold bg-success')
                 } 
@@ -454,7 +454,7 @@ function compareDates(fromDate, toDate) {
                         td3.textContent = num3
                     }
                     else {
-                        td3.textContent = "-" + num3
+                        td3.textContent =  num3
                     }
                     td3.setAttribute('class', 'border text-center font-weight-bold bg-danger')
                 } 
@@ -470,7 +470,7 @@ function compareDates(fromDate, toDate) {
                         td4.textContent = num4
                     }
                     else {
-                        td4.textContent = "-" + num4
+                        td4.textContent =  num4
                     }
                     td4.setAttribute('class', 'border text-center font-weight-bold bg-success')
                 } 
@@ -521,7 +521,7 @@ function compareDates(fromDate, toDate) {
                         td5.textContent = num5
                     }
                     else {
-                        td5.textContent = "-" + num5
+                        td5.textContent =  num5
                     }
                     td5.setAttribute('class', 'border text-center font-weight-bold bg-success')
                 } 
@@ -537,7 +537,7 @@ function compareDates(fromDate, toDate) {
                         td6.textContent = num6
                     }
                     else {
-                        td6.textContent = "-" + num6
+                        td6.textContent =  num6
                     }
                     td6.setAttribute('class', 'border text-center font-weight-bold bg-success')
                 } 
@@ -553,7 +553,7 @@ function compareDates(fromDate, toDate) {
                         td7.textContent = num7
                     }
                     else {
-                        td7.textContent = "-" + num7
+                        td7.textContent =  num7
                     }
                     td7.setAttribute('class', 'border text-center font-weight-bold bg-danger')
                 } 
@@ -568,7 +568,7 @@ function compareDates(fromDate, toDate) {
                         td8.textContent = num8
                     }
                     else {
-                        td8.textContent = "-" + num8
+                        td8.textContent =  num8
                     }
                     td8.setAttribute('class', 'border text-center font-weight-bold bg-success')
                 } 
