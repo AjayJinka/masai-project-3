@@ -5,6 +5,12 @@
 # Home Page
 ![](https://github.com/AjayJinka/masai-project-3/blob/master/images/home.PNG)
 
+# Technologies Used
+1. Javascript
+2. Bootstrap
+3. CSS
+4. HTML
+
 # Functionality
 You can get Covid Data in 4 Styles
 1. Whole globe live covid data (Click on the globe).
