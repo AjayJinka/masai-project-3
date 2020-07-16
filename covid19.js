@@ -167,6 +167,7 @@ function displaySelectedDay(date, dateDup){
             var response = JSON.parse(xhr.response)
             var dispCountry = document.getElementById('dispCountry')
             dispCountry.innerHTML = ""
+            dispCountry.style.visibility = "visible"
             dispCountry.textContent = selectedCountry + " on " + new Date(date).toLocaleDateString()
             var resultHead = document.getElementById('resultHead')
             var headRow = document.getElementById('headRow')
@@ -274,6 +275,7 @@ function displayselectedRange(fromDate, toDate) {
             var response = JSON.parse(xhr.response)
             var dispCountry = document.getElementById('dispCountry')
             dispCountry.innerHTML = ""
+            dispCountry.style.visibility = "visible"
             dispCountry.textContent = selectedCountry +  " : Covid Data Between " + new Date(fromDate).toLocaleDateString() + " & " + new Date(toDate).toLocaleDateString()
             var headRow = document.getElementById('headRow')
             if( headRow.lastChild.textContent !== "Date" ) {
@@ -391,6 +393,7 @@ function compareDates(fromDate, toDate) {
             var response = JSON.parse(xhr.response)
             var dispCountry = document.getElementById('dispCountry')
             dispCountry.innerHTML = ""
+            dispCountry.style.visibility = "visible"
             dispCountry.textContent = selectedCountry +  " : Increase/Decrease of Cases between " + new Date(fromDate).toLocaleDateString() + " & " + new Date(toDate).toLocaleDateString()
             var headRow = document.getElementById('headRow')
             if( headRow.lastChild.textContent === "Date" ) {
